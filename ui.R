@@ -15,31 +15,34 @@ shinyUI(fluidPage(
   ),
   
   titlePanel(title = h1("Visualizing SNAP", align = "center", style = "color:darkgreen")),
-  sidebarPanel(  
+  sidebarPanel(
+    numericInput("num", label = h5("Enter your household monthly SNAP allotment (in $) to receive
+                 a recommended weekly expenditure on groceries:"), value = 250),
+    h5(textOutput("textRecom")),
     sliderInput("budget", 
-                label = "What is your weekly grocery budget?:",
-                min = 0, max = 100, value = c(35, 70)), uiOutput("plot_ui"),
+                label = "",
+                min = 0, max = 200, value = c(50, 70)), uiOutput("plot_ui"),
     sliderInput("cals", 
-                label = "What would you like your daily caloric intake to be?:",
+                label = h5("What would you like your daily caloric intake to be?:"),
                 min = 0, max = 4000, value = c(1800, 2550)),
     sliderInput("fat", 
-                label = "What would you like your daily fat intake (in g) to be?:",
+                label = h5("What would you like your daily fat intake (in g) to be?:"),
                 min = 0, max = 80, value = c(20, 35)),
     sliderInput("prot", 
-                label = "What would you like your daily protein intake (in g) to be?:",
+                label = h5("What would you like your daily protein intake (in g) to be?:"),
                 min = 0, max = 100, value = c(54, 70)),
     sliderInput("sugar", 
-                label = "What would you like your daily sugar intake (in g) to be?:",
+                label = h5("What would you like your daily sugar intake (in g) to be?:"),
                 min = 0, max = 100, value = c(0, 37.5)),
     sliderInput("fiber", 
-                label = "What would you like your daily fiber intake (in g) to be?:",
+                label = h5("What would you like your daily fiber intake (in g) to be?:"),
                 min = 0, max = 100, value = c(25, 38)),
     sliderInput("sodium", 
-                label = "What would you like your daily sodium intake (in mg) to be?:",
+                label = h5("What would you like your daily sodium intake (in mg) to be?:"),
                 min = 0, max = 4000, value = c(0, 2300)),
     sliderInput("serv", 
-                label = "What is the maximum # of servings of a single food you would
-                be willing to eat per week?:",
+                label = h5("What is the maximum # of servings of a single food you would
+                be willing to eat per week?:"),
                 min = 0, max = 50, value = 10)
   ),
     mainPanel(
@@ -49,6 +52,8 @@ shinyUI(fluidPage(
       div(style = "width:800px; height:600px;",
       ggvisOutput("plot1")
       ),
+      br(),
+      textOutput("textBudget"),
       br(),
       helpText("The default values to the left are the nutritional guidelines
         that USDA and AHA recommend the average 31-50 year old male

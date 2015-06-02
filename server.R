@@ -3,7 +3,7 @@ library(lpSolve)
 library(lpSolveAPI)
 library(shiny)
 library(dplyr)
-SNAP2 <- read.csv("~/VisualizingSNAP/data/SNAP2.csv")
+SNAP2 <- read.csv("./data/SNAP2.csv")
 
   function(input, output, session) {
       
@@ -25,15 +25,26 @@ SNAP2 <- read.csv("~/VisualizingSNAP/data/SNAP2.csv")
                 c(input$prot[1]*7, input$prot[2]*7, input$fat[1]*7, input$fat[2]*7, input$budget[1], input$budget[2],
                   input$sodium[1]*7, input$sodium[2]*7, input$fiber[1]*7, input$fiber[2]*7,
                   input$sugar[1]*7, input$sugar[2]*7, input$cals[1]*7, input$cals[2]*7, 16, 28, 9, 25, 6.4, 24, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv, input$serv))
-  
+    
   # drop any variables that have a 0 coefficient in the model
   x <- data.frame(SNAP2$food, SNAP2$foodGroup, SNAP2$protPerServ, maxProt$solution)
   x <- droplevels(x[!(x$maxProt.solution == 0),])
+  })
+  
+  output$textRecom <- renderText({ 
+    paste("We recommend spending about $", signif(input$num[1]*(1/4), 2), "per week on food.
+          Enter the range below that you believe reflects this budget:")
+  })
+  output$textBudget <- renderText({ 
+    paste("You have chosen a weekly budget that ranges from $",
+          input$budget[1], "to $", input$budget[2], ".")
   })
     
   x %>%
     ggvis(~SNAP2.food, ~maxProt.solution, fill = ~SNAP2.foodGroup) %>%
     layer_points(size := "400", opacity := "0.8") %>%
+    add_tooltip(function(x){paste0("Food: ", x$SNAP2.food, "<br>", "Servings: ",
+        signif(x$maxProt.solution, 2), "<br>")}, "hover") %>%
     add_axis("x", title = "", ticks = 14,
              properties = axis_props(
                majorTicks = list(strokeWidth = 2),
@@ -48,7 +59,7 @@ SNAP2 <- read.csv("~/VisualizingSNAP/data/SNAP2.csv")
              )
     ) %>%
     add_axis("x", orient = "top", ticks = 0, title = "Recommended Servings of
-             Food to Minimize Dietary/Nutritional Constraints",
+             Food Given Nutritional Constraints",
              properties = axis_props(
                axis = list(stroke = "white"),
                title = list(fontSize = 16),
