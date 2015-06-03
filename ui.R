@@ -1,7 +1,7 @@
 library("ggvis")
 
 
-shinyUI(fluidPage(theme = "bootstrap.css",
+shinyUI(fluidPage(
   
   tags$head(
     tags$style(HTML("
