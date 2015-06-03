@@ -1,6 +1,5 @@
 library("ggvis")
 
-
 shinyUI(fluidPage(theme = "bootstrap.css",
   
   tags$head(
