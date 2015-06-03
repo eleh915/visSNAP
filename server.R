@@ -32,7 +32,7 @@ SNAP2 <- read.csv("./data/SNAP2.csv")
   })
   
   output$textRecom <- renderText({ 
-    paste("We recommend spending about $", signif(input$num[1]*(1/4), 2), "per week on food.
+    paste("We recommend spending about $", signif(input$num[1]*(1/3), 2), "per week on food.
           Enter the range below that you believe reflects this budget:")
   })
   output$textBudget <- renderText({ 
