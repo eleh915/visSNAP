@@ -3,7 +3,9 @@ library(lpSolve)
 library(lpSolveAPI)
 library(shiny)
 library(dplyr)
+
 SNAP2 <- read.csv("./data/SNAP2.csv")
+nutrients <- read.csv("./data/nutrientByDemoT.csv")
 
   function(input, output, session) {
       
@@ -38,6 +40,9 @@ SNAP2 <- read.csv("./data/SNAP2.csv")
   output$textBudget <- renderText({ 
     paste("You have chosen a weekly budget that ranges from $",
           input$budget[1], "to $", input$budget[2], ".")
+  })
+  output$nutrients = renderDataTable({
+    nutrients
   })
     
   x %>%

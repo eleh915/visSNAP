@@ -23,7 +23,7 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                 min = 0, max = 4000, value = c(1800, 2550)),
     sliderInput("fat", 
                 label = h5("What would you like your daily fat intake (in g) to be?:"),
-                min = 0, max = 80, value = c(20, 35)),
+                min = 0, max = 80, value = c(25, 35)),
     sliderInput("prot", 
                 label = h5("What would you like your daily protein intake (in g) to be?:"),
                 min = 0, max = 100, value = c(54, 70)),
@@ -58,8 +58,16 @@ shinyUI(fluidPage(theme = "bootstrap.css",
         that the USDA and AHA recommend the average 31-50 year old male
         consume. The graph is constrained by their further recommendations--that Americans
         consume at least 16 oz fruit, 28 oz vegetables, 9 oz grain,
-        and 24 oz dairy per week. The chart allows you to optimize your
-        diet according to your budget.")))
+        and 24 oz dairy per week. The chart in the 'Interactive Graph' tab allows you
+        to optimize your diet according to your budget."),
+                 br(),
+                 helpText("The table below provides recommended nutritional values based on
+                          age and sex. The calorie range's lower bound is for the most
+                          sedentary individuals, while the upper bound is for the most
+                          active individuals. It reflects the number of calories to consume
+                          if one intends to remain at a constant weight."),
+                 br(),
+                 dataTableOutput('nutrients')))
         )
       )
   )
