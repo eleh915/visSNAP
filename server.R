@@ -8,7 +8,8 @@ SNAP2 <- read.csv("./data/SNAP2.csv")
 nutrients <- read.csv("./data/nutrientByDemoT.csv")
 
   function(input, output, session) {
-      
+    
+  # feed in user input to create model
   x <- reactive({
     
   # set up optimization eq maximizing protein given constraints
@@ -37,14 +38,13 @@ nutrients <- read.csv("./data/nutrientByDemoT.csv")
     paste("We recommend spending about $", signif(input$num[1]*(1/3), 2), "per week on food.
           Enter the range below that you believe reflects this budget:")
   })
-  output$textBudget <- renderText({ 
-    paste("You have chosen a weekly budget that ranges from $",
-          input$budget[1], "to $", input$budget[2], ".")
-  })
+  
+  # data chart for nutritional recs based on age/sex
   output$nutrients = renderDataTable({
     nutrients
   })
-    
+  
+  # graph of recommended servings of food based on optim (lp) eq
   x %>%
     ggvis(~SNAP2.food, ~maxProt.solution, fill = ~SNAP2.foodGroup) %>%
     layer_points(size := "400", opacity := "0.8") %>%
