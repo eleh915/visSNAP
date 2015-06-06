@@ -84,7 +84,7 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                  h4("The Supplemental Nutrition Assistance Program (SNAP) provides a contribution
                     towards food for in-need households. The average SNAP recipient receives $1.39
                     per meal. Nine out of ten Americans receiving SNAP benefits live with children,
-                    elderly, or disabled persons, and forty percent live in households below half
+                    elderly, or disabled persons, and 40% live in households below half
                     the poverty line."),
                  h3("Do I Qualify?",
                     style = "color:#66CCFF; font-family: 'Lobster', cursive; font-weight:500;"),
@@ -96,19 +96,18 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                   "Call 1-800-221-5689 for more information."),
                  h3("Why participate?",
                     style = "color:#66CCFF; font-family: 'Lobster', cursive; font-weight:500;"),
-                 h4("The Supplemental Nutrition Assistance Program (SNAP) provides a contribution
-                  towards food for in-need households. It allows families with unemployed adults
+                 h4("SNAP allows families with unemployed adults
                   to focus on finding work, rather than stressing about putting food on the table.
                   Participating in SNAP is correlated with a higher level of employment:"),
                  div(img(src = "employment.png"), style = "text-align: center;"),
                  h4("Additionally, SNAP almost completely covers the benefits for which all
-                    eligible Americans qualify. As such, participation rates are high across
+                    eligible Americans qualify. For this reason, participation rates are high across
                     the nation. However, the elderly and working-poor are still underserved."),
                  div(img(src = "eligibility.png"), style = "text-align: center;"),
                  div(img(src = "participation.png"), style = "text-align: center;"),
                  h4("SNAP is an important stimulus during economic recessions, since SNAP
                     recipients are quick to redeem their benefits, thereby boosting local
-                    economies. The number of SNAP retailers is at an all-time high--more
+                    economies. The number of SNAP retailers is at an all-time high--there are more
                     than a quarter million retailers across the nation as of 2013. SNAP
                     benefits can be redeemed at supermarkets/superstores, grocery stores,
                     and convenience stores, among other places. To learn more about the SNAP
