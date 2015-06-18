@@ -16,42 +16,39 @@ shinyUI(fluidPage(theme = "bootstrap.css",
     numericInput("num", label = h4("Enter your household monthly SNAP allotment (in $) to receive
                  a recommended weekly expenditure on groceries:"), value = 250),
     h4(textOutput("textRecom")),
-    sliderInput("budget", 
+    sliderInput("Price", 
                 label = "",
                 min = 0, max = 200, value = c(50, 100)), uiOutput("plot_ui"),
-    sliderInput("cals", 
+    sliderInput("Cals", 
                 label = h4("What would you like your daily caloric intake to be?:"),
                 min = 0, max = 4000, value = c(2000, 3200)),
-    sliderInput("fat", 
-                label = h4("What would you like your daily fat intake (in g) to be?:"),
-                min = 0, max = 80, value = c(25, 35)),
-    sliderInput("prot", 
+    sliderInput("SatFat", 
+                label = h4("What would you like your daily saturated fat intake (in g) to be?:"),
+                min = 0, max = 80, value = c(5, 15)),
+    sliderInput("Prot", 
                 label = h4("What would you like your daily protein intake (in g) to be?:"),
-                min = 0, max = 100, value = c(52, 100)),
-    sliderInput("sugar", 
+                min = 0, max = 200, value = c(52, 100)),
+    sliderInput("Sugar", 
                 label = h4("What would you like your daily sugar intake (in g) to be?:"),
                 min = 0, max = 100, value = c(0, 37.5)),
-    sliderInput("fiber", 
+    sliderInput("Fiber", 
                 label = h4("What would you like your daily fiber intake (in g) to be?:"),
                 min = 0, max = 100, value = c(31, 100)),
-    sliderInput("sodium", 
+    sliderInput("Sodium", 
                 label = h4("What would you like your daily sodium intake (in mg) to be?:"),
                 min = 0, max = 4000, value = c(1500, 2300)),
     sliderInput("serv", 
                 label = h4("What is the maximum # of servings of a single food you would
                 be willing to eat per week?:"),
-                min = 0, max = 50, value = 8)
+                min = 0, max = 6, value = 5)
   ),
     mainPanel(
       navbarPage("",
         tabPanel("Interactive Graph",
                  selectInput("select", label = h4("I am primarily trying to minimize:"),
-                    choices = list("Cost", "Calories", "Fat", "Sugar", "Sodium"),
+                    choices = list("Cost", "Calories", "Saturated Fat", "Sugar", "Sodium"),
                     selected = "Cost",),
-                 h4("Hover over points to find out how many servings of each food you should eat in one week.
-                    The outer circle indicates how many ounces are in a serving, which often corresponds to how
-                    filling an item will be. A darker outer circle indicates fewer ounces per serving, or a
-                    less filling serving size.", style = "color:#006699;"),
+                 h4("Hover over points to find out how many servings of each food you should eat in one week.", style = "color:#006699;"),
                  div(ggvisOutput("plot1")
                  )),
         tabPanel("Nutritional Recommendations",
@@ -61,8 +58,15 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                   consume. The graph is constrained by their further recommendations--that Americans
                   consume at least 16 oz fruit, 28 oz vegetables, 9 oz grain,
                   and 24 oz dairy per week. The chart in the 'Interactive Graph' tab allows you
-                  to optimize your diet according to your budget. All foods and prices are based off of a 
-                  Key Foods supermarket in Brooklyn, NY.", style = "color:black;"),
+                  to optimize your diet according to your budget. All foods and prices are based
+                  off of the",
+                    a("USDA National Nutrient Database",
+                      href = "http://ndb.nal.usda.gov/ndb/foods"),
+                    "and",
+                    a("CNPP Prices Database",
+                      href = "http://www.cnpp.usda.gov/data"),
+                    "(adjusted for inflation).",
+                    style = "color:black;"),
                  h4("The table below provides recommended nutritional values based on
                   age and sex. The calorie range's lower bound is for the most
                   sedentary individuals, while the upper bound is for the most
@@ -75,6 +79,15 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                  br(),
                  dataTableOutput('nutrients'),
                  tags$head(tags$style("#nutrients table {background:lightpink; color:black;}", type="text/css"))
+                 ))
+        ),
+        tabPanel("Food Database",
+                 fluidRow(
+                   column(8,
+                   h4("The database below is drawn from the USDA's National Nutrient Database, and provides an easy way to look up a given food.
+                      All data--including price--are based on one serving of the food."),
+                 dataTableOutput('usdaTable'),
+                 tags$head(tags$style("#usdaTable table {background:lightblue; color:black;}", type="text/css"))
                  ))
         ),
         tabPanel("SNAP Information",
