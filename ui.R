@@ -14,11 +14,11 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                         line-height: 1.1;")),
   sidebarPanel(
     numericInput("num", label = h4("Enter your household monthly SNAP allotment (in $) to receive
-                 a recommended weekly expenditure on groceries:"), value = 250),
+                 a recommended weekly expenditure on groceries:"), value = 125),
     h4(textOutput("textRecom")),
     sliderInput("Price", 
                 label = "",
-                min = 0, max = 200, value = c(50, 100)), uiOutput("plot_ui"),
+                min = 0, max = 200, value = c(78, 100)), uiOutput("plot_ui"),
     sliderInput("Cals", 
                 label = h4("What would you like your daily caloric intake to be?:"),
                 min = 0, max = 4000, value = c(2000, 3200)),
@@ -40,7 +40,7 @@ shinyUI(fluidPage(theme = "bootstrap.css",
     sliderInput("serv", 
                 label = h4("What is the maximum # of servings of a single food you would
                 be willing to eat per week?:"),
-                min = 0, max = 6, value = 5)
+                min = 0, max = 6, value = 6)
   ),
     mainPanel(
       navbarPage("",
@@ -48,16 +48,18 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                  selectInput("select", label = h4("I am primarily trying to minimize:"),
                     choices = list("Cost", "Calories", "Saturated Fat", "Sugar", "Sodium"),
                     selected = "Cost",),
-                 h4("Hover over points to find out how many servings of each food you should eat in one week.", style = "color:#006699;"),
+                 h4("Hover over points to find out how many servings of each ingredients you should use to
+                    prepare dishes each week. Toggle the bars on the left to adjust to your dietary needs.",
+                    style = "color:#006699;"),
                  div(ggvisOutput("plot1")
                  )),
         tabPanel("Nutritional Recommendations",
                  fluidRow(
                    column(10,
                  h4("The default values to the left are the nutritional guidelines that the USDA and AHA recommend the average 14-18 year old male
-                  consume. The graph is constrained by their further recommendations--that Americans
-                  consume at least 16 oz fruit, 28 oz vegetables, 9 oz grain,
-                  and 24 oz dairy per week. The chart in the 'Interactive Graph' tab allows you
+                  consume. The graph is further constrained by MyPlate.gov's recommendations--that Americans
+                  consume at least 14 cups fruit, 17.5 cups vegetables, 42 oz grains, 38.5 oz protein foods,
+                  and 21 cups dairy per week. The chart in the 'Interactive Graph' tab allows you
                   to optimize your diet according to your budget. All foods and prices are based
                   off of the",
                     a("USDA National Nutrient Database",
@@ -83,9 +85,8 @@ shinyUI(fluidPage(theme = "bootstrap.css",
         ),
         tabPanel("Food Database",
                  fluidRow(
-                   column(8,
-                   h4("The database below is drawn from the USDA's National Nutrient Database, and provides an easy way to look up a given food.
-                      All data--including price--are based on one serving of the food."),
+                   column(10,
+                   h4("The database below is drawn from the USDA's National Nutrient Database, and provides an easy way to look up a given food. All data--including price--are based on one serving of the food."),
                  dataTableOutput('usdaTable'),
                  tags$head(tags$style("#usdaTable table {background:lightblue; color:black;}", type="text/css"))
                  ))
