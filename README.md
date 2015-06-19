@@ -4,4 +4,4 @@ using shiny + ggvis to look create nutritional recommendations under financial c
 to run this in R:
 runGitHub("visSNAP", "eleh915")
 
-or visit: https://eleh915.shinyapps.io/VisualizingSNAP/
+or visit: https://ericaleh.shinyapps.io/visualizingSNAP/
